@@ -40,11 +40,9 @@ def get_db_connection():
             user=DB_USER,
             password=DB_PASSWORD,
             connect_timeout=15,
-            row_factory=dict_row,           # returns rows as dicts (like Supabase)
+            row_factory=dict_row,
             # Recommended SSL settings
-            sslmode='require',              # or 'verify-full' if you have cert
-            # If you downloaded the Supabase cert:
-            # sslrootcert='/path/to/prod-supabase.cer'
+            sslmode='require'
         )
         print("Database connection established.")
         return conn

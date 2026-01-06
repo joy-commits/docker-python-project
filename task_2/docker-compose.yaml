@@ -1,0 +1,32 @@
+services:
+  # Python Application Service (connecting to Supabase)
+  app:
+    build: ./app
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    environment:
+      # Database Configuration
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT:-6543}
+      DB_NAME: ${DB_NAME:-postgres}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      
+      # Email Configuration
+      SMTP_SERVER: ${SMTP_SERVER:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SENDER_EMAIL: ${SENDER_EMAIL}
+      SENDER_PASSWORD: ${SENDER_PASSWORD}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - quote_network
+
+# Custom network
+networks:
+  quote_network:
+    driver: bridge
